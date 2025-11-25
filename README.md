@@ -1,44 +1,68 @@
-# Ryu369Token 🐉
+# Ryu369NFT 🐉🎨
 
-My first ERC-20 token built with Solidity and OpenZeppelin.
+My first ERC-721 NFT collection built with Solidity and OpenZeppelin.
 
 ## Overview
 
-- **Token Name:** Ryu369Token
-- **Symbol:** RYU369
-- **Total Supply:** 1,000,000 RYU369
-- **Standard:** ERC-20
-- **Blockchain:** Ethereum (Remix VM)
+- **NFT Name:** Ryu369NFT
+- **Symbol:** RYUNFT
+- **Standard:** ERC-721
+- **Blockchain:** Ethereum (Sepolia Testnet)
+- **Contract Address:** 0x22fDfF2B43e2DfaD91060A7e03477f98f1F29EF3
 
 ## Technology Stack
 
 - Solidity ^0.8.20
-- OpenZeppelin Contracts
-- Remix IDE
+- OpenZeppelin Contracts (ERC721, Ownable)
+- Hardhat
+- Ethers.js
 
 ## Contract Code
 ```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract Ryu369Token is ERC20 {
-    constructor() ERC20("Ryu369Token", "RYU369") {
-        _mint(msg.sender, 1000000 * 10 ** decimals());
+contract Ryu369NFT is ERC721, Ownable {
+    uint256 private _tokenIdCounter;
+
+    constructor() ERC721("Ryu369NFT", "RYUNFT") Ownable(msg.sender) {}
+
+    function safeMint(address to) public onlyOwner {
+        uint256 tokenId = _tokenIdCounter;
+        _tokenIdCounter++;
+        _safeMint(to, tokenId);
     }
 }
 ```
 
 ## Deployment
 
-Deployed on Remix VM (Prague) for testing and learning purposes.
+Deployed on Sepolia Testnet using Hardhat.
+
+**View on Etherscan:**  
+https://sepolia.etherscan.io/address/0x22fDfF2B43e2DfaD91060A7e03477f98f1F29EF3
+
+## Setup
+```bash
+npm install
+```
+
+## Deploy
+```bash
+npx hardhat run scripts/deploy.js --network sepolia
+```
 
 ## Learning Journey
 
-This token was created as part of my blockchain development learning path:
+This NFT collection was created as part of my blockchain development learning path:
+
 - ✅ Completed CryptoZombies Lessons 1-6
-- ✅ Created first ERC-20 token
+- ✅ Created first ERC-20 token (Ryu369Token)
+- ✅ Created first ERC-721 NFT collection
+- ✅ Deployed to Sepolia testnet with Hardhat
 - 🎯 Goal: Become a top DeFi developer
 
 ## Author
@@ -49,8 +73,8 @@ This token was created as part of my blockchain development learning path:
 
 ## Date
 
-November 22, 2025
+November 26, 2025
 
 ---
 
-*This is my first step towards becoming a blockchain developer! 🚀*
+*Building my blockchain portfolio one project at a time! 🚀*
